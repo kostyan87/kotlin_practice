@@ -18,8 +18,9 @@ public abstract class AligmentAlgo {
         int count = -1;
         for (int i = 0; i < text.length(); i++) {
             count++;
-            if (text.charAt(i) == '\n') {
+            if (text.charAt(i) == '\n' || i == text.length() - 1) {
                 line = new StringBuilder(text.substring(i - count, i + 1));
+                addSpaces(line, width);
                 list.add(line);
                 count = 0;
             }
@@ -39,6 +40,10 @@ public abstract class AligmentAlgo {
 //            end = end + width;
 //        }
         return list;
+    }
+
+    public static void addSpaces(StringBuilder line, int width) {
+        line.append(" ".repeat(Math.max(0, width - line.length())));
     }
 
     public String concatLines(ArrayList<StringBuilder> listOfString) {

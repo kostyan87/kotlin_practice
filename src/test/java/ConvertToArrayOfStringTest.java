@@ -5,6 +5,7 @@ import task1.LeftAlign;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConvertToArrayOfStringTest {
@@ -18,8 +19,10 @@ public class ConvertToArrayOfStringTest {
 
     @Test
     void widthTextLessThanPageTest() {
-        assertEquals(Arrays.asList(new StringBuilder("Это текст, ширина которого меньше, чем ширина страницы в символах                                  ")),
-                algo.convertToArrayOfString(new StringBuilder("Это текст, ширина которого меньше, чем ширина страницы в символах"),100));
+        ArrayList<String> list1 = new ArrayList<>();
+        list1.add("Это текст, ширина которого меньше, чем ширина страницы в символах                                   ");
+        ArrayList<StringBuilder> list2 = algo.convertToArrayOfString(new StringBuilder("Это текст, ширина которого меньше, чем ширина страницы в символах"),100);
+        assertEquals(list1, list2);
     }
 
     @Test
