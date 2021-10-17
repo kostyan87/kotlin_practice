@@ -14,15 +14,30 @@ public abstract class AligmentAlgo {
 
     public ArrayList<StringBuilder> convertToArrayOfString(StringBuilder text, int width) {
         ArrayList<StringBuilder> list = new ArrayList<>();
-        int len = text.length();
-        int start = 0;
-        int end = Math.min(len, width);
-        while (len > 0) {
-            list.add(new StringBuilder(text.substring(start, end)));
-            len = len - width;
-            start = end;
-            end = end + width;
+        StringBuilder line;
+        int count = -1;
+        for (int i = 0; i < text.length(); i++) {
+            count++;
+            if (text.charAt(i) == '\n') {
+                line = new StringBuilder(text.substring(i - count, i + 1));
+                list.add(line);
+                count = 0;
+            }
+            if (count == width) {
+                line = new StringBuilder(text.substring(i - count, i + 1));
+                list.add(line.append('\n'));
+                count = 0;
+            }
         }
+//        int len = text.length();
+//        int start = 0;
+//        int end = Math.min(len, width);
+//        while (len > 0) {
+//            list.add(new StringBuilder(text.substring(start, Math.min(text.length(), end))));
+//            len = len - width;
+//            start = end;
+//            end = end + width;
+//        }
         return list;
     }
 
@@ -30,8 +45,9 @@ public abstract class AligmentAlgo {
         StringBuilder alignedText = new StringBuilder();
         for (StringBuilder line:
                 listOfString) {
-            alignedText.append(line);
+            alignedText.append(line).append('\n');
         }
+//        alignedText.delete(alignedText.length() - 2, alignedText.length());
         return alignedText.toString();
     }
 }
