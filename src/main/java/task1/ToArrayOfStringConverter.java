@@ -4,50 +4,48 @@ import java.util.ArrayList;
 
 public class ToArrayOfStringConverter {
 
-    public ArrayList<StringBuilder> convertToArrayOfString(StringBuilder text, int width) {
-        ArrayList<StringBuilder> listOfStr = new ArrayList<>();
+    public ArrayList<StringBuilder> convertToArrayOfString(String text, int width) {
+        String[] arrayOfStrings = text.split("\n");
+        ArrayList<String[]> listOfArraysOfWords = new ArrayList<>();
+        for (String str:
+             arrayOfStrings) {
+            listOfArraysOfWords.add(str.split(" "));
+        }
         ArrayList<StringBuilder> list = new ArrayList<>();
-        if (text.length() < width)
-            list.add(text);
-        String[] d = text.toString().split("\n");
+        StringBuilder str = new StringBuilder(width);
 
-        for (String s:
-             d) {
-            System.out.println(/*'|' + */s/* + '|'*/);
-            if (s.length() < width)
-                list.add(new StringBuilder(/*'|' + */s/* + '|'*/));
-            int start = 0;
-            int end = width;
-            while (end < s.length()) {
-                list.add(new StringBuilder(/*'|' + */s.substring(start, end)/* + '|'*/));
-                start = end;
-                end = end + width;
-                if (end >= s.length())
-                    list.add(new StringBuilder(/*'|' + */s.substring(start)/* + '|'*/));
+        for (String[] arrayOfWords:
+             listOfArraysOfWords) {
+            for (int i = 0; i < arrayOfWords.length; i++) {
+                String word = arrayOfWords[i];
+                if (str.length() + arrayOfWords[i].length() + 1 <= width) {
+                    if (str.length() == 0) {
+                        str.append(word);
+                    }
+                    else {
+                        str.append(" ").append(word);
+                    }
+                    if (i == arrayOfWords.length - 1) {
+                        list.add(str);
+                        str = new StringBuilder(word);
+                    }
+                }
+                else {
+                    if (!str.isEmpty()) list.add(str);
+                    str = new StringBuilder(word);
+                    if (word.length() > width) {
+                        StringBuilder str1 = new StringBuilder(word.substring(0, width));
+                        StringBuilder str2 = new StringBuilder(word.substring(width));
+                        list.add(str1);
+                        list.add(str2);
+                        str = new StringBuilder();
+                    }
+                    else if (i == arrayOfWords.length - 1) list.add(str);
+                }
             }
+            str = new StringBuilder();
         }
 
-//        while (end < text.length()) {
-//            list.add(new StringBuilder('|' + text.substring(start, end) + '|'));
-//            start = end;
-//            end = end + width;
-//            if (end > text.length())
-//                list.add(new StringBuilder('|' + text.substring(start, text.length()) + '|'));
-//        }
-//        for (int i = 0; i < text.length(); i++) {
-//            count++;
-//            if (text.charAt(i) == '\n' || i == text.length() - 1) {
-//                line = new StringBuilder(text.substring(i - count, i + 1));
-//                addSpaces(line, width);
-//                list.add(line);
-//                count = 0;
-//            }
-//            if ((i + 1) % width == 0) {
-//                line = new StringBuilder(text.substring((i + 1) - width, i + 1));
-//                list.add(line.append('\n'));
-//                count = 0;
-//            }
-//        }
         return list;
     }
 

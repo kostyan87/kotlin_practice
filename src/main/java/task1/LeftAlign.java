@@ -8,9 +8,9 @@ public class LeftAlign extends AligmentAlgo {
         for (StringBuilder s:
              listOfString) {
             for (int i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == ' ') s.deleteCharAt(i);
+                if (s.charAt(0) != ' ') break;
+                s.deleteCharAt(0);
             }
-            s.append(" ".repeat(width - s.length()));
         }
     }
 }
