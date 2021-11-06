@@ -3,18 +3,14 @@ package task3;
 public class Circle implements Shape {
     private double radius;
 
-    public Circle(double radius) {
+    public Circle(double radius)
+            throws NegativeLengthException {
         setRadius(radius);
     }
 
-    public void setRadius(double radius) {
-        try {
-            if (radius >= 0) this.radius = radius;
-            else throw new NegativeLengthException("Radius is negative");
-        }
-        catch (NegativeLengthException e) {
-            System.out.println(e.getMessage());
-        }
+    public void setRadius(double radius) throws NegativeLengthException {
+        if (radius >= 0) this.radius = radius;
+        else throw new NegativeLengthException("Radius is negative");
     }
 
     @Override
