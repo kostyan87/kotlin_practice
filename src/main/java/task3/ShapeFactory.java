@@ -1,7 +1,5 @@
 package task3;
 
-import task3.*;
-
 public interface ShapeFactory {
     Circle createCircle(double radius)
             throws NegativeLengthException;
