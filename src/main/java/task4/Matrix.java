@@ -79,6 +79,14 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
         return this;
     }
 
+    public void plusAssign(Matrix matrix) {
+        new PlusAssignOperation().doOperationAlgo(this, matrix);
+    }
+
+    public void minusAssign(Matrix matrix) {
+        new MinusAssignOperation().doOperationAlgo(this, matrix);
+    }
+
     public Matrix multiplication(Matrix matrixForSum) {
         return null;
     }
@@ -101,11 +109,6 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
         int result = Objects.hash(columns, rows);
         result = 31 * result + Arrays.hashCode(matrix);
         return result;
-    }
-
-    public Matrix plusAssign(Matrix matrix) {
-        //TODO;
-        return null;
     }
 
     public void times(double scalar) {

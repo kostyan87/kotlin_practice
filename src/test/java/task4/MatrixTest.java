@@ -94,4 +94,22 @@ public class MatrixTest {
                                                {7, 8, 9}}),
                 matrix1.unaryPlus());
     }
+
+    @Test
+    void assignPlus() {
+        matrix1.plusAssign(matrix2);
+        assertEquals(new Matrix(new double[][]{{11, 0, 11},
+                                               {46, 0, 72},
+                                               {0, 16, 63}}),
+                matrix1);
+    }
+
+    @Test
+    void assignMinus() {
+        matrix1.minusAssign(matrix2);
+        assertEquals(new Matrix(new double[][]{{-9.0, 4.0, -5.0},
+                                               {-38.0, 10.0, -60.0},
+                                               {14.0, 0.0, -45.0}}),
+                matrix1);
+    }
 }
