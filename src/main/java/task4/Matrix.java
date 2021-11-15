@@ -64,16 +64,23 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
     }
 
     public Matrix plus(Matrix matrixForSum) {
-        Matrix resultMatrix = new Matrix(new double[matrix.length][matrix[0].length]);
-        for (AbstractMap.SimpleImmutableEntry<Integer, Integer> entry:
-             this) {
-            int i = entry.getKey();
-            int j = entry.getValue();
-            double a = this.get(i, j);
-            double b = matrixForSum.get(i, j);
-            resultMatrix.set(i, j,a + b);
-        }
-        return resultMatrix;
+        return new PlusBinaryOperation().doOperationAlgo(this, matrixForSum);
+    }
+
+    public Matrix minus(Matrix matrixForSum) {
+        return new MinusBinaryOperation().doOperationAlgo(this, matrixForSum);
+    }
+
+    public Matrix unaryMinus() {
+        return new MinusUnaryOperation().doOperationAlgo(this);
+    }
+
+    public Matrix unaryPlus() {
+        return this;
+    }
+
+    public Matrix multiplication(Matrix matrixForSum) {
+        return null;
     }
 
     @Override
@@ -122,15 +129,5 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
     private void checkIncorrectIndexException(int i, int j) {
         if (i > matrix.length || i < 0 || j > matrix[0].length || j < 0)
             throw new IncorrectIndexException("incorrect index");
-    }
-
-    public Matrix unaryMinus() {
-        //TODO;
-        return null;
-    }
-
-    public Matrix unaryPlus() {
-        //TODO;
-        return this;
     }
 }
