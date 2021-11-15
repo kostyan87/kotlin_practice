@@ -1,4 +1,6 @@
-package task4;
+package task4.unary_operation;
+
+import task4.Matrix;
 
 import java.util.AbstractMap;
 

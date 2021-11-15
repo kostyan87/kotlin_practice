@@ -1,4 +1,6 @@
-package task4;
+package task4.binary_operation;
+
+import task4.binary_operation.BinaryOperation;
 
 public class MinusBinaryOperation extends BinaryOperation {
     @Override

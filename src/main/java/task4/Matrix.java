@@ -1,6 +1,15 @@
 package task4;
 
 import org.jetbrains.annotations.NotNull;
+import task4.assign_operation.MinusAssignOperation;
+import task4.assign_operation.PlusAssignOperation;
+import task4.assign_scalar_operation.DivideAssignScalarOperation;
+import task4.assign_scalar_operation.MultiplicationAssignScalarOperation;
+import task4.binary_operation.MinusBinaryOperation;
+import task4.binary_operation.PlusBinaryOperation;
+import task4.scalar_operation.DivideScalarOperation;
+import task4.scalar_operation.MultiplicationScalarOperation;
+import task4.unary_operation.MinusUnaryOperation;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
@@ -63,28 +72,54 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
         };
     }
 
+    // matrix3 = matrix1 + matrix2
     public Matrix plus(Matrix matrixForSum) {
         return new PlusBinaryOperation().doOperationAlgo(this, matrixForSum);
     }
 
+    // matrix3 = matrix1 - matrix2
     public Matrix minus(Matrix matrixForSum) {
         return new MinusBinaryOperation().doOperationAlgo(this, matrixForSum);
     }
 
+    // -matrix1
     public Matrix unaryMinus() {
         return new MinusUnaryOperation().doOperationAlgo(this);
     }
 
+    // +matrix1
     public Matrix unaryPlus() {
         return this;
     }
 
+    // matrix1 += matrix2
     public void plusAssign(Matrix matrix) {
         new PlusAssignOperation().doOperationAlgo(this, matrix);
     }
 
+    // matrix1 -= matrix2
     public void minusAssign(Matrix matrix) {
         new MinusAssignOperation().doOperationAlgo(this, matrix);
+    }
+
+    // matrix1 *= scalar (matrix1 changed)
+    public void divideAssignScalar(double scalar) {
+        new DivideAssignScalarOperation().doOperationAlgo(this, scalar);
+    }
+
+    // matrix1 /= scalar (matrix1 changed)
+    public void multiplicationAssignScalar(double scalar) {
+        new MultiplicationAssignScalarOperation().doOperationAlgo(this, scalar);
+    }
+
+    // matrix2 = matrix1 * scalar
+    public Matrix divideScalar(double scalar) {
+        return new DivideScalarOperation().doOperationAlgo(this, scalar);
+    }
+
+    // matrix2 = matrix1 / scalar
+    public Matrix multiplicationScalar(double scalar) {
+        return new MultiplicationScalarOperation().doOperationAlgo(this, scalar);
     }
 
     public Matrix multiplication(Matrix matrixForSum) {

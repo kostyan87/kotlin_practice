@@ -112,4 +112,38 @@ public class MatrixTest {
                                                {14.0, 0.0, -45.0}}),
                 matrix1);
     }
+
+    @Test
+    void divideAssignScalar() {
+        matrix1.divideAssignScalar(2);
+        assertEquals(new Matrix(new double[][]{{0.5, 1.0, 1.5},
+                                               {2, 2.5, 3},
+                                               {3.5, 4, 4.5}}),
+                matrix1);
+    }
+
+    @Test
+    void multiplicationAssignScalar() {
+        matrix1.multiplicationAssignScalar(2);
+        assertEquals(new Matrix(new double[][]{{2, 4, 6},
+                                               {8, 10, 12},
+                                               {14, 16, 18}}),
+                matrix1);
+    }
+
+    @Test
+    void divideScalar() {
+        assertEquals(new Matrix(new double[][]{{0.5, 1, 1.5},
+                                               {2, 2.5, 3},
+                                               {3.5, 4, 4.5}}),
+                matrix1.divideScalar(2));
+    }
+
+    @Test
+    void multiplicationScalar() {
+        assertEquals(new Matrix(new double[][]{{2, 4, 6},
+                                               {8, 10, 12},
+                                               {14, 16, 18}}),
+                matrix1.multiplicationScalar(2));
+    }
 }
