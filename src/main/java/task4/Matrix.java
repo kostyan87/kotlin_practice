@@ -1,17 +1,29 @@
 package task4;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
-public class Matrix implements Cloneable {
+public class Matrix implements Iterable<Double> {
 
     private double[][] matrix;
-    private int columns;
-    private int rows;
+    private final int columns;
+    private final int rows;
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public int getRows() {
+        return rows;
+    }
 
     public Matrix(double[][] matrix) {
-        this.columns = matrix[0].length;
         this.rows = matrix.length;
+        if (rows == 0) this.columns = 0;
+        else this.columns = matrix[0].length;
         this.matrix = new double[rows][columns];
         for (int i = 0; i < matrix.length; i++) {
             System.arraycopy(matrix[i], 0, this.matrix[i], 0, matrix[i].length);
@@ -21,6 +33,31 @@ public class Matrix implements Cloneable {
     @Override
     public String toString() {
         return Arrays.deepToString(matrix);
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Double> iterator() {
+        return new Iterator<Double>() {
+            private int i = 0;
+            private int j = 0;
+
+            @Override
+            public boolean hasNext() {
+                return (i <= rows - 1);
+            }
+
+            @Override
+            public Double next() {
+                double num = matrix[i][j];
+                j++;
+                if (j == columns) {
+                    i++;
+                    j = 0;
+                }
+                return num;
+            }
+        };
     }
 
     public Matrix plus(Matrix matrixForSum) {
