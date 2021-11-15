@@ -2,11 +2,12 @@ package task4;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class Matrix implements Iterable<Double> {
+public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer, Integer>> {
 
     private double[][] matrix;
     private final int columns;
@@ -35,10 +36,11 @@ public class Matrix implements Iterable<Double> {
         return Arrays.deepToString(matrix);
     }
 
+    // returns the indices of the next element
     @NotNull
     @Override
-    public Iterator<Double> iterator() {
-        return new Iterator<Double>() {
+    public Iterator<AbstractMap.SimpleImmutableEntry<Integer, Integer>> iterator() {
+        return new Iterator<>() {
             private int i = 0;
             private int j = 0;
 
@@ -48,26 +50,30 @@ public class Matrix implements Iterable<Double> {
             }
 
             @Override
-            public Double next() {
-                double num = matrix[i][j];
+            public AbstractMap.SimpleImmutableEntry<Integer, Integer> next() {
+                int resultI = i;
+                int resultJ = j;
                 j++;
                 if (j == columns) {
                     i++;
                     j = 0;
                 }
-                return num;
+                return new AbstractMap.SimpleImmutableEntry<>(resultI, resultJ);
             }
         };
     }
 
     public Matrix plus(Matrix matrixForSum) {
-        double[][] matrixOfSum = new double[matrix.length][matrix[0].length];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                matrixOfSum[i][j] = matrix[i][j] + matrixForSum.get(i, j);
-            }
+        Matrix resultMatrix = new Matrix(new double[matrix.length][matrix[0].length]);
+        for (AbstractMap.SimpleImmutableEntry<Integer, Integer> entry:
+             this) {
+            int i = entry.getKey();
+            int j = entry.getValue();
+            double a = this.get(i, j);
+            double b = matrixForSum.get(i, j);
+            resultMatrix.set(i, j,a + b);
         }
-        return new Matrix(matrixOfSum);
+        return resultMatrix;
     }
 
     @Override
