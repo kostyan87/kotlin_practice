@@ -7,6 +7,9 @@ import task4.assign_scalar_operation.DivideAssignScalarOperation;
 import task4.assign_scalar_operation.MultiplicationAssignScalarOperation;
 import task4.binary_operation.MinusBinaryOperation;
 import task4.binary_operation.PlusBinaryOperation;
+import task4.exception.CheckMatrixExceptions;
+import task4.exception.IncorrectMatrixSizeException;
+import task4.multiplication_operation.MultiplicationOperation;
 import task4.scalar_operation.DivideScalarOperation;
 import task4.scalar_operation.MultiplicationScalarOperation;
 import task4.unary_operation.MinusUnaryOperation;
@@ -19,8 +22,8 @@ import java.util.Objects;
 public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer, Integer>> {
 
     private double[][] matrix;
-    private final int columns;
-    private final int rows;
+    private int columns;
+    private int rows;
 
     public int getColumns() {
         return columns;
@@ -28,6 +31,12 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
 
     public int getRows() {
         return rows;
+    }
+
+    public Matrix(int rows, int columns) {
+        this.columns = columns;
+        this.rows = rows;
+        matrix = new double[rows][columns];
     }
 
     public Matrix(double[][] matrix) {
@@ -73,13 +82,22 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
     }
 
     // matrix3 = matrix1 + matrix2
-    public Matrix plus(Matrix matrixForSum) {
-        return new PlusBinaryOperation().doOperationAlgo(this, matrixForSum);
+    public Matrix plus(Matrix matrix) {
+        CheckMatrixExceptions.checkIncorrectMatrixSizeException(this, matrix);
+        return new PlusBinaryOperation().doOperationAlgo(this, matrix);
     }
 
     // matrix3 = matrix1 - matrix2
-    public Matrix minus(Matrix matrixForSum) {
-        return new MinusBinaryOperation().doOperationAlgo(this, matrixForSum);
+    public Matrix minus(Matrix matrix) {
+        CheckMatrixExceptions.checkIncorrectMatrixSizeException(this, matrix);
+        return new MinusBinaryOperation().doOperationAlgo(this, matrix);
+    }
+
+    // matrix3 = matrix1 * matrix2
+    public Matrix multiplication(Matrix matrix) {
+        if (this.getColumns() != matrix.getRows())
+            throw new IncorrectMatrixSizeException("The number of columns of the first matrix is not equal to the number of rows of the second matrix");
+        return new Matrix(new MultiplicationOperation().multiplication(this, matrix));
     }
 
     // -matrix1
@@ -94,12 +112,23 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
 
     // matrix1 += matrix2
     public void plusAssign(Matrix matrix) {
+        CheckMatrixExceptions.checkIncorrectMatrixSizeException(this, matrix);
         new PlusAssignOperation().doOperationAlgo(this, matrix);
     }
 
     // matrix1 -= matrix2
     public void minusAssign(Matrix matrix) {
+        CheckMatrixExceptions.checkIncorrectMatrixSizeException(this, matrix);
         new MinusAssignOperation().doOperationAlgo(this, matrix);
+    }
+
+    // matrix1 *= matrix2
+    public void multiplicationAssign(Matrix matrix) {
+        if (this.getColumns() != matrix.getRows())
+            throw new IncorrectMatrixSizeException("The number of columns of the first matrix is not equal to the number of rows of the second matrix");
+        this.matrix = new MultiplicationOperation().multiplication(this, matrix);
+        columns = this.matrix[0].length;
+        rows = this.matrix.length;
     }
 
     // matrix1 *= scalar (matrix1 changed)
@@ -122,10 +151,6 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
         return new MultiplicationScalarOperation().doOperationAlgo(this, scalar);
     }
 
-    public Matrix multiplication(Matrix matrixForSum) {
-        return null;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -142,30 +167,17 @@ public class Matrix implements Iterable<AbstractMap.SimpleImmutableEntry<Integer
     @Override
     public int hashCode() {
         int result = Objects.hash(columns, rows);
-        result = 31 * result + Arrays.hashCode(matrix);
+        result = 31 * result + Arrays.deepHashCode(matrix);
         return result;
     }
 
-    public void times(double scalar) {
-        //TODO;
-    }
-
-    public void timesAssign(double scalar) {
-        //TODO;
-    }
-
     public void set(int i, int j, double value) {
-        checkIncorrectIndexException(i, j);
+        CheckMatrixExceptions.checkIncorrectIndexException(i, j, columns, rows);
         matrix[i][j] = value;
     }
 
     public double get(int i, int j) {
-        checkIncorrectIndexException(i, j);
+        CheckMatrixExceptions.checkIncorrectIndexException(i, j, columns, rows);
         return matrix[i][j];
-    }
-
-    private void checkIncorrectIndexException(int i, int j) {
-        if (i > matrix.length || i < 0 || j > matrix[0].length || j < 0)
-            throw new IncorrectIndexException("incorrect index");
     }
 }

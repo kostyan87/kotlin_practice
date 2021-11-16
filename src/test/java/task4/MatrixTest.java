@@ -146,4 +146,29 @@ public class MatrixTest {
                                                {14, 16, 18}}),
                 matrix1.multiplicationScalar(2));
     }
+
+    @Test
+    void multiplication1() {
+        assertEquals(new Matrix(new double[][]{{73, 12, 302},
+                                               {208, 15, 686},
+                                               {343, 18, 1070}}),
+                matrix1.multiplication(matrix2));
+    }
+
+    @Test
+    void multiplication2() {
+        assertEquals(new Matrix(new double[][]{{30, 36},
+                                               {66, 81},
+                                               {102, 126}}),
+                matrix1.multiplication(matrix3));
+    }
+
+    @Test
+    void multiplicationAssign() {
+        matrix1.multiplicationAssign(matrix3);
+        assertEquals(new Matrix(new double[][]{{30, 36},
+                                               {66, 81},
+                                               {102, 126}}),
+                matrix1);
+    }
 }
