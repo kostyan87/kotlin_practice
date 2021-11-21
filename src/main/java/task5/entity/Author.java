@@ -1,6 +1,13 @@
 package task5.entity;
 
-public record Author(String firstName, String lastName) {
+public class Author {
+    private final String firstName;
+    private final String lastName;
+
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public String getFirstName() {
         return firstName;

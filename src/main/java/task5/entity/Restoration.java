@@ -1,12 +1,8 @@
 package task5.entity;
 
-public record Restoration(String status) implements Status {
-    public Restoration {
-        status = "Restoration";
-    }
-
+public final class Restoration implements Status {
     @Override
     public String getStatus() {
-        return null;
+        return "Restoration";
     }
 }

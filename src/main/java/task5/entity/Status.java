@@ -1,6 +1,6 @@
 package task5.entity;
 
-public sealed interface Status permits Available, UsedBy, ComingSoon, Restoration {
+public interface Status {
     String getStatus();
 }
 
