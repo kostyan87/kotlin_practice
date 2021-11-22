@@ -1,4 +1,4 @@
-package task5.service;
+package task5;
 
 import task5.Genre;
 import task5.entity.Author;
@@ -13,7 +13,7 @@ import java.util.Map;
 public interface LibraryService {
     List<Book> findBooks(String substring);
     List<Book> findBooks(Author author);
-    List<Book> findBooks(Year year);
+    List<Book> findBooks(int year);
     List<Book> findBooks(Genre genre);
 
     List<Book> getAllBooks();
@@ -24,7 +24,7 @@ public interface LibraryService {
 
     void setBookStatus(Book book, Status status);
 
-    void addBook(Book book, Status status);
+    void addBook(Book book, Status status, List<Author> authors);
 
     void registerUser(User user);
     void unregisterUser(User user);

@@ -1,22 +1,20 @@
-package task5.service;
+package task5;
 
-import task5.Genre;
 import task5.entity.*;
 
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LibraryServiceImpl implements LibraryService {
 
-    private final List<Book> booksRepository = new ArrayList<>();
+    private final Map<Book, Status> bookStatuses = new HashMap();
+    private final Map<Book, List<Author>> bookAuthors = new HashMap();
     private final List<User> usersRepository = new ArrayList<>();
 
     @Override
     public List<Book> findBooks(String substring) {
-        return booksRepository
+        return bookStatuses
+                .keySet()
                 .stream()
                 .filter(book -> book.getTitle().contains(substring))
                 .collect(Collectors.toList());
@@ -24,23 +22,26 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public List<Book> findBooks(Author author) {
-        return booksRepository
+        return bookStatuses
+                .keySet()
                 .stream()
-                .filter(book -> book.getAuthors().contains(author))
+                .filter(book -> bookAuthors.get(book).contains(author))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Book> findBooks(Year year) {
-        return booksRepository
+    public List<Book> findBooks(int year) {
+        return bookStatuses
+                .keySet()
                 .stream()
-                .filter(book -> book.getYear().equals(year))
+                .filter(book -> book.getYear() == year)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Book> findBooks(Genre genre) {
-        return booksRepository
+        return bookStatuses
+                .keySet()
                 .stream()
                 .filter(book -> book.getGenre() == genre)
                 .collect(Collectors.toList());
@@ -48,40 +49,36 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public List<Book> getAllBooks() {
-        return booksRepository;
+        return List.copyOf(bookStatuses.keySet());
     }
 
     @Override
     public List<Book> getAllAvailableBooks() {
-        return booksRepository
+        return bookStatuses
+                .keySet()
                 .stream()
-                .filter(book -> book.getStatus().getStatus().equals("Available"))
+                .filter(book -> getBookStatus(book).getStatus().equals("Available"))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Status getBookStatus(Book book) {
-        return book.getStatus();
+        return bookStatuses.get(book);
     }
 
     @Override
     public Map<Book, Status> getAllBookStatuses() {
-//        return booksRepository
-//                .stream()
-//                .collect(Collectors.groupingBy(Book, Book::getStatus));
-        return null;
+        return bookStatuses;
     }
 
     @Override
     public void setBookStatus(Book book, Status status) {
-        Book newBook = book.changeStatus(status);
-        booksRepository.add(newBook);
+        bookStatuses.put(book, status);
     }
 
     @Override
-    public void addBook(Book book, Status status) {
-//        book.setStatus(status);
-//        booksRepository.add(book);
+    public void addBook(Book book, Status status, List<Author> authors) {
+        bookStatuses.put(book, status);
     }
 
     @Override
@@ -96,12 +93,11 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void takeBook(User user, Book book) {
-//        user.setBook(book);
-//        book.setStatus(new UsedBy(user));
+        setBookStatus(book, new UsedBy(user));
     }
 
     @Override
     public void returnBook(Book book) {
-
+        setBookStatus(book, new Available());
     }
 }
