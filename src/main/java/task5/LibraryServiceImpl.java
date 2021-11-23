@@ -7,9 +7,15 @@ import java.util.stream.Collectors;
 
 public class LibraryServiceImpl implements LibraryService {
 
-    private final Map<Book, Status> bookStatuses = new HashMap();
-    private final Map<Book, List<Author>> bookAuthors = new HashMap();
-    private final List<User> usersRepository = new ArrayList<>();
+    private final Map<Book, Status> bookStatuses;
+    private final Map<Book, List<Author>> bookAuthors;
+    private final List<User> usersRepository;
+
+    {
+        bookStatuses = new HashMap<>();
+        bookAuthors = new HashMap<>();
+        usersRepository = new ArrayList<>();
+    }
 
     @Override
     public List<Book> findBooks(String substring) {
@@ -89,6 +95,15 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void unregisterUser(User user) {
         usersRepository.remove(user);
+    }
+
+    @Override
+    public List<User> findUsers(String substring) {
+        return usersRepository
+                .stream()
+                .filter(user -> user.getFirstName().contains(substring) ||
+                        user.getLastName().contains(substring))
+                .collect(Collectors.toList());
     }
 
     @Override

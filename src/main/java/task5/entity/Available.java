@@ -1,8 +1,12 @@
 package task5.entity;
 
-public final class Available implements Status {
+public final class Available extends Status {
+    {
+        status = "Available";
+    }
+
     @Override
     public String getStatus() {
-        return "Available";
+        return status;
     }
 }

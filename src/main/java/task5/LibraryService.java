@@ -29,6 +29,9 @@ public interface LibraryService {
     void registerUser(User user);
     void unregisterUser(User user);
 
+    // my method
+    List<User> findUsers(String substring);
+
     void takeBook(User user, Book book);
     void returnBook(Book book);
 

@@ -1,15 +1,13 @@
 package task5.entity;
 
-public final class UsedBy implements Status {
-    private final String userFirstName;
-    private final String userLastName;
-
+public final class UsedBy extends Status {
     public UsedBy(User user) {
-        this.userFirstName = user.getFirstName();
-        this.userLastName = user.getLastName();
+        String userFirstName = user.getFirstName();
+        String userLastName = user.getLastName();
+        this.status = "Used by: " + userFirstName + " " + userLastName;
     }
 
     public String getStatus() {
-        return "Used by: " + userFirstName + " " + userLastName;
+        return status;
     }
 }
