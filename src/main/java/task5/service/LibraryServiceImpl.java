@@ -32,10 +32,7 @@ public class LibraryServiceImpl implements LibraryService {
         return bookStatuses
                 .keySet()
                 .stream()
-                .filter(book -> {
-                    List<Author> list = bookAuthors.get(book);
-                    return bookAuthors.get(book).contains(author);
-                })
+                .filter(book -> bookAuthors.get(book).contains(author))
                 .collect(Collectors.toList());
     }
 
