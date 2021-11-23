@@ -1,5 +1,6 @@
-package task5;
+package task5.service;
 
+import task5.entity.Genre;
 import task5.entity.*;
 
 import java.util.*;
@@ -31,7 +32,10 @@ public class LibraryServiceImpl implements LibraryService {
         return bookStatuses
                 .keySet()
                 .stream()
-                .filter(book -> bookAuthors.get(book).contains(author))
+                .filter(book -> {
+                    List<Author> list = bookAuthors.get(book);
+                    return bookAuthors.get(book).contains(author);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -85,6 +89,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void addBook(Book book, Status status, List<Author> authors) {
         bookStatuses.put(book, status);
+        bookAuthors.put(book, authors);
     }
 
     @Override

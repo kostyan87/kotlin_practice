@@ -1,7 +1,5 @@
 package task5.entity;
 
-import task5.*;
-
 import java.util.Objects;
 
 public final class Book {
