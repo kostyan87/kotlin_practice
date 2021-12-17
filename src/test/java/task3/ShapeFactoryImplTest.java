@@ -8,35 +8,34 @@ class ShapeFactoryImplTest {
     ShapeFactory shapeFactory = new ShapeFactoryImpl();
 
     @Test
-    void createCircle() throws NegativeLengthException {
-        assertEquals(new Circle(15.5665).calcArea(),
-                shapeFactory.createCircle(15.5665).calcArea());
-        assertEquals(new Circle(15.5665).calcPerimeter(),
-                shapeFactory.createCircle(15.5665).calcPerimeter());
+    void createCircle() {
+        assertEquals(new Circle(15.5665),
+                shapeFactory.createCircle(15.5665));
+        assertEquals(new Circle(15.5665),
+                shapeFactory.createCircle(15.5665));
     }
 
     @Test
-    void createSquare() throws NegativeLengthException {
-        assertEquals(new Square(85.56554665).calcPerimeter(),
-                shapeFactory.createSquare(85.56554665).calcPerimeter());
-        assertEquals(new Square(85.56554665).calcArea(),
-                shapeFactory.createSquare(85.56554665).calcArea());
+    void createSquare() {
+        assertEquals(new Square(85.56554665),
+                shapeFactory.createSquare(85.56554665));
+        assertEquals(new Square(85.56554665),
+                shapeFactory.createSquare(85.56554665));
     }
 
     @Test
-    void createRectangle() throws NegativeLengthException {
-        assertEquals(new Rectangle(85.56554665, 17.315).calcPerimeter(),
-                shapeFactory.createRectangle(85.56554665, 17.315).calcPerimeter());
-        assertEquals(new Rectangle(85.56554665, 17.315).calcArea(),
-                shapeFactory.createRectangle(85.56554665, 17.315).calcArea());
+    void createRectangle() {
+        assertEquals(new Rectangle(85.56554665, 17.315),
+                shapeFactory.createRectangle(85.56554665, 17.315));
+        assertEquals(new Rectangle(85.56554665, 17.315),
+                shapeFactory.createRectangle(85.56554665, 17.315));
     }
 
     @Test
-    void createTriangle() throws NegativeLengthException,
-            IncorrectSideException  {
-        assertEquals(new Triangle(85.56554665, 17.315, 86.1651).calcPerimeter(),
-                shapeFactory.createTriangle(85.56554665, 17.315, 86.1651).calcPerimeter());
-        assertEquals(new Triangle(85.56554665, 17.315, 86.1651).calcArea(),
-                shapeFactory.createTriangle(85.56554665, 17.315, 86.1651).calcArea());
+    void createTriangle() {
+        assertEquals(new Triangle(85.56554665, 17.315, 86.1651),
+                shapeFactory.createTriangle(85.56554665, 17.315, 86.1651));
+        assertEquals(new Triangle(85.56554665, 17.315, 86.1651),
+                shapeFactory.createTriangle(85.56554665, 17.315, 86.1651));
     }
 }

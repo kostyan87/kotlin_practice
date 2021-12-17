@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws NegativeLengthException,
-            IncorrectSideException {
+            IncorrectTriangleSideException {
         ArrayList<Shape> listOfShape = new ArrayList<>(5);
         listOfShape.add(new Circle(45));
         listOfShape.add(new Square(18.51));
