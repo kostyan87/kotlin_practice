@@ -26,7 +26,7 @@ public class ShapeCollector<T extends Shape> {
         return new ArrayList<>(allShapes);
     }
 
-    public List<T> getAllSorted(Comparator<Shape> comparator) {
-        return new ArrayList<>(allShapes).stream().sorted(comparator).collect(Collectors.toList());
+    public List<T> getAllSorted(Comparator<? super T> comparator) {
+        return allShapes.stream().sorted(comparator).collect(Collectors.toList());
     }
 }

@@ -3,16 +3,16 @@ package task6;
 public class ShapeComparators {
     private final AreaAscendingComparator areaAscendingComparator;
     private final AreaDescendingComparator areaDescendingComparator;
-    private final PeriemeterAscendingComparator periemeterAscendingComparator;
-    private final PeriemeterDescendingComparator periemeterDescendingComparator;
+    private final PerimeterAscendingComparator periemeterAscendingComparator;
+    private final PerimeterDescendingComparator periemeterDescendingComparator;
     private final CircleRadiusAscendingComparator circleRadiusAscendingComparator;
     private final CircleRadiusDescendingComparator circleRadiusDescendingComparator;
 
     {
         areaAscendingComparator = new AreaAscendingComparator();
         areaDescendingComparator = new AreaDescendingComparator();
-        periemeterAscendingComparator = new PeriemeterAscendingComparator();
-        periemeterDescendingComparator = new PeriemeterDescendingComparator();
+        periemeterAscendingComparator = new PerimeterAscendingComparator();
+        periemeterDescendingComparator = new PerimeterDescendingComparator();
         circleRadiusAscendingComparator = new CircleRadiusAscendingComparator();
         circleRadiusDescendingComparator = new CircleRadiusDescendingComparator();
     }
@@ -25,11 +25,11 @@ public class ShapeComparators {
         return areaDescendingComparator;
     }
 
-    public PeriemeterAscendingComparator getPeriemeterAscendingComparator() {
+    public PerimeterAscendingComparator getPeriemeterAscendingComparator() {
         return periemeterAscendingComparator;
     }
 
-    public PeriemeterDescendingComparator getPeriemeterDescendingComparator() {
+    public PerimeterDescendingComparator getPeriemeterDescendingComparator() {
         return periemeterDescendingComparator;
     }
 
