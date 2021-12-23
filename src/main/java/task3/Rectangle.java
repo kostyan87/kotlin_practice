@@ -1,5 +1,6 @@
 package task3;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Rectangle implements Shape {
@@ -8,6 +9,9 @@ public class Rectangle implements Shape {
 
     public Rectangle(double side1, double side2) {
         setSides(side1, side2);
+    }
+
+    public Rectangle() {
     }
 
     public void setSides(double side1, double side2) {
