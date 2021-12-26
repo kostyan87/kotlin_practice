@@ -1,6 +1,5 @@
 package task3;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 public class Triangle implements Shape {
@@ -10,6 +9,9 @@ public class Triangle implements Shape {
 
     public Triangle(double side1, double side2, double side3) {
         setSides(side1, side2, side3);
+    }
+
+    public Triangle() {
     }
 
     public void setSides(double side1, double side2, double side3) {

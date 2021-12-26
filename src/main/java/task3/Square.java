@@ -1,10 +1,12 @@
 package task3;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 public class Square implements Shape {
     private double side;
+
+    public Square() {
+    }
 
     public Square(double side) {
         setSide(side);

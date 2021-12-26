@@ -1,10 +1,12 @@
 package task3;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 public class Circle implements Shape {
     private double radius;
+
+    public Circle() {
+    }
 
     public Circle(double radius) {
         setRadius(radius);
