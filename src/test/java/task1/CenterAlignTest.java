@@ -3,6 +3,7 @@ package task1;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CenterAlignTest {
     private final AligmentAlgo algo = new CenterAlign();
@@ -10,6 +11,14 @@ public class CenterAlignTest {
     @Test
     void emptyTextTest() {
         assertEquals("", algo.alignText("",7));
+    }
+
+    @Test
+    void incorrectWidthTest() {
+        assertThrows(IncorrectWidthException.class,
+                () -> algo.alignText(
+                        "Это текст, ширина которого меньше," +
+                                " чем ширина страницы в символах", -70));
     }
 
     @Test
