@@ -1,0 +1,16 @@
+{
+  "shapeList" : [ {
+    "type" : "triangle",
+    "side1" : 4.0,
+    "side2" : 5.0,
+    "side3" : 6.0
+  },
+    {
+      "type" : "square",
+      "side" : 4.0
+    }, {
+      "type" : "rectangle",
+      "side1" : 4.0,
+      "side2" : 4.0
+    } ]
+}
